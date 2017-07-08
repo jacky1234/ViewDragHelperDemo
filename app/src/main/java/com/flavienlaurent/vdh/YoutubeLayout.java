@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 /**
  * Created by Flavien Laurent (flavienlaurent.com) on 23/08/13.
@@ -42,8 +43,16 @@ public class YoutubeLayout extends ViewGroup {
 
     @Override
     protected void onFinishInflate() {
+        super.onFinishInflate();
         mHeaderView = findViewById(R.id.header);
         mDescView = findViewById(R.id.desc);
+
+        mHeaderView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "head click", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void maximize() {
@@ -192,7 +201,14 @@ public class YoutubeLayout extends ViewGroup {
                     } else {
                         smoothSlideTo(0f);
                     }
+
+                    //增加click响应事件
+                    if (mHeaderView.isClickable()) {
+                        mHeaderView.performClick();
+                    }
                 }
+
+
                 break;
             }
         }
